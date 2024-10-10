@@ -38,7 +38,20 @@ src/
 │       └── application.properties # Configurações da aplicação (banco de dados, etc)
 ```
 
-## Clone o repositório
-git <p style="color:blue;">clone</p> https://github.com/seu-usuario/nome-do-repositorio.git
-<p style="color:yellow;">cd</p> nome-do-repositorio
+## Instalação e Configuração
+
+1. Clone o repositório
+```
+git clone https://github.com/seu-usuario/nome-do-repositorio.git
+```
+
+2. Navegue até o diretório do projeto
+```
+cd api_taks
+```
+
+3. Execute o projeto
+```
+./mvnw spring-boot:run
+```
 
