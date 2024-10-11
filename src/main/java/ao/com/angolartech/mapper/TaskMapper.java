@@ -4,6 +4,7 @@ package ao.com.angolartech.mapper;
 import ao.com.angolartech.dto.TaskRequest;
 import ao.com.angolartech.dto.TaskResponse;
 import ao.com.angolartech.model.Task;
+import ao.com.angolartech.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
