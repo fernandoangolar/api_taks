@@ -22,10 +22,10 @@ public class Task {
     private String descricao;
 
     @Column(name = "data_criacao")
-    private final LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataCriacao;
 
     @Column(name = "data_conclusao")
-    private final LocalDateTime dataConclusao;
+    private LocalDateTime dataConclusao;
 
     private Status status;
     private Prioridade prioridade;
