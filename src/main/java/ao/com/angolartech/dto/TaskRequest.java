@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 public class TaskRequest {
 
     @NotNull(message = "O título é obrigatório")
-    @Size(min = 3, max = 100, message = "P título deve ter entre 3 a 100 caracteres.")
-    private String title;
+    @Size(min = 3, max = 100, message = "O título deve ter entre 3 a 100 caracteres.")
+    private String titulo;
 
     @Size(max = 500, message = "A descrição deve ter no máximo 500 caracteres")
-    private String description;
+    private String descricao;
 
     @NotNull(message = "A data de vencimento é obrigatória")
     private LocalDateTime dataConclusao;

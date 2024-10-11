@@ -3,10 +3,14 @@ package ao.com.angolartech.dto;
 import ao.com.angolartech.enums.Prioridade;
 import ao.com.angolartech.enums.Status;
 import ao.com.angolartech.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class TaskResponse {
 
@@ -16,9 +20,9 @@ public class TaskResponse {
 
     private String descricao;
 
-    private final LocalDateTime dataCriacao = LocalDateTime.now();
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
-    private final LocalDateTime dataConclusao;
+    private LocalDateTime dataConclusao;
 
     private Status status;
     private Prioridade prioridade;
