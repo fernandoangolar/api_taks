@@ -1,36 +1,27 @@
-package ao.com.angolartech.model;
+package ao.com.angolartech.dto;
 
 import ao.com.angolartech.enums.Prioridade;
 import ao.com.angolartech.enums.Status;
-import jakarta.persistence.*;
+import ao.com.angolartech.model.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-@Table(name = "tarefas")
-public class Task {
+public class TaskResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String titulo;
 
     private String descricao;
 
-    @Column(name = "data_criacao")
     private final LocalDateTime dataCriacao = LocalDateTime.now();
 
-    @Column(name = "data_conclusao")
     private final LocalDateTime dataConclusao;
 
     private Status status;
     private Prioridade prioridade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     private User user;
 }
