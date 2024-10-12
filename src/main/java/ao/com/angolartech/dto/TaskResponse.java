@@ -26,6 +26,4 @@ public class TaskResponse {
 
     private Status status;
     private Prioridade prioridade;
-
-    private User user;
 }
