@@ -14,7 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -52,6 +53,24 @@ public class TaskServiceImpl implements TaskService {
 
         TaskResponse response = taskMapper.entityToResponse(task);
         return response;
+    }
+
+    @Override
+    public List<TaskResponse> findAll() {
+
+        List<Task> tasks = taskRepo.findAll();
+//        List<TaskResponse> taskResponses = new ArrayList<>();
+//
+//        for ( Task task : tasks ) {
+//            TaskResponse response = taskMapper.entityToResponse(task);
+//            taskResponses.add(response);
+//        }
+
+        List<TaskResponse> responses = tasks.stream()
+                .map(task -> taskMapper.entityToResponse(task))
+                .collect(Collectors.toList());
+
+        return responses;
     }
 
 
