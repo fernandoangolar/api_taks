@@ -6,4 +6,5 @@ import ao.com.angolartech.dto.TaskResponse;
 public interface TaskService {
 
     TaskResponse create(TaskRequest request);
+    TaskResponse findById(Long task_id);
 }

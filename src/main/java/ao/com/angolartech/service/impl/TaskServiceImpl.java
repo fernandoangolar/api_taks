@@ -5,6 +5,7 @@ import ao.com.angolartech.dto.TaskResponse;
 import ao.com.angolartech.enums.Prioridade;
 import ao.com.angolartech.enums.Status;
 import ao.com.angolartech.exception.DataInvalidaException;
+import ao.com.angolartech.exception.ResourceNotFoundException;
 import ao.com.angolartech.mapper.TaskMapper;
 import ao.com.angolartech.model.Task;
 import ao.com.angolartech.repository.TaskRepo;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -39,6 +41,17 @@ public class TaskServiceImpl implements TaskService {
 
         Task taskSave = taskRepo.save(task);
         return taskMapper.entityToResponse(taskSave);
+    }
+
+    @Override
+    public TaskResponse findById(Long task_id) {
+
+        Task task = taskRepo.findById(task_id)
+                .orElseThrow( () -> new ResourceNotFoundException(
+                        String.format("Task com id %d não foi encontrado", task_id)));
+
+        TaskResponse response = taskMapper.entityToResponse(task);
+        return response;
     }
 
 
