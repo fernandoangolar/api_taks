@@ -79,6 +79,7 @@ public class TaskServiceImpl implements TaskService {
         if (dataConclusao.isBefore(dataCriacao)) {
             throw new DataInvalidaException("A data de conclusão não pode ser anterior à data de criação");
         }
+
         if (dataConclusao.isBefore(LocalDateTime.now())) {
             throw new DataInvalidaException("A data de conclusão não pode ser no passado");
         }

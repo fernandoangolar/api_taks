@@ -2,7 +2,6 @@ package ao.com.angolartech.dto;
 
 import ao.com.angolartech.enums.Prioridade;
 import ao.com.angolartech.enums.Status;
-import ao.com.angolartech.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
