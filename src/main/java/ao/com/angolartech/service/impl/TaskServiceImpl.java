@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,6 +78,41 @@ public class TaskServiceImpl implements TaskService {
         return responses;
     }
 
+    @Override
+    public TaskResponse update(TaskRequest request, Long task_id) {
+
+        Task task = taskRepo.findById(task_id)
+                .orElseThrow( () -> new ResourceNotFoundException(
+                        String.format("Task com id %d não foi encontrado", task_id)
+                ));
+
+        // Aqui vai ter a lógica do usuário
+
+        if ( taskRepo.existsByTitulo(request.getTitulo()) && !task.getTitulo().equals(request.getTitulo()) ) {
+            throw new ResourceWithTitleExists("Já existe uma tarefa com este título.");
+        }
+
+        task.setTitulo(request.getTitulo());
+        task.setDescricao(request.getDescricao());
+        task.setDataConclusao(request.getDataConclusao());
+
+        validarDatas(task.getDataCriacao(), task.getDataConclusao());
+
+        dateExperited(Status.CONCLUIDA);
+
+        Task taskupdate = taskRepo.save(task);
+        return taskMapper.entityToResponse(taskupdate);
+    }
+
+    private void dateExperited(Status status) {
+
+        Task task = new Task();
+
+        if ( task.getDataCriacao().isBefore(LocalDateTime.now()) ) {
+
+            task.setStatus(Status.CONCLUIDA);
+        }
+    }
 
     private void validarDatas(LocalDateTime dataCriacao, LocalDateTime dataConclusao) {
 
