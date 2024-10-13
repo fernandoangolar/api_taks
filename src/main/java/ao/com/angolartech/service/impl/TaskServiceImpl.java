@@ -56,6 +56,8 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow( () -> new ResourceNotFoundException(
                         String.format("Task com id %d não foi encontrado", task_id)));
 
+        verifUpdateStatus(task);
+
         TaskResponse response = taskMapper.entityToResponse(task);
         return response;
     }
@@ -70,6 +72,8 @@ public class TaskServiceImpl implements TaskService {
 //            TaskResponse response = taskMapper.entityToResponse(task);
 //            taskResponses.add(response);
 //        }
+
+        tasks.forEach(this::verifUpdateStatus);
 
         List<TaskResponse> responses = tasks.stream()
                 .map(task -> taskMapper.entityToResponse(task))
@@ -98,19 +102,17 @@ public class TaskServiceImpl implements TaskService {
 
         validarDatas(task.getDataCriacao(), task.getDataConclusao());
 
-        dateExperited(Status.CONCLUIDA);
+        verifUpdateStatus(task);
 
         Task taskupdate = taskRepo.save(task);
         return taskMapper.entityToResponse(taskupdate);
     }
 
-    private void dateExperited(Status status) {
+    private void verifUpdateStatus(Task task) {
 
-        Task task = new Task();
-
-        if ( task.getDataCriacao().isBefore(LocalDateTime.now()) ) {
-
+        if ( task.getDataConclusao().isBefore(LocalDateTime.now()) && !task.getDataConclusao().equals(Status.CONCLUIDA)) {
             task.setStatus(Status.CONCLUIDA);
+            taskRepo.save(task);
         }
     }
 
