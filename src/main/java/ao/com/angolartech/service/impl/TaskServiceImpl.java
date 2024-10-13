@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -106,6 +107,17 @@ public class TaskServiceImpl implements TaskService {
 
         Task taskupdate = taskRepo.save(task);
         return taskMapper.entityToResponse(taskupdate);
+    }
+
+    @Override
+    public void delete(Long task_id) {
+
+        Task task = taskRepo.findById(task_id)
+                        .orElseThrow( () -> new ResourceNotFoundException(
+                                String.format("Task com id %d não foi encontrado", task_id)
+                        ));
+
+        taskRepo.deleteById(task.getId());
     }
 
     private void verifUpdateStatus(Task task) {
