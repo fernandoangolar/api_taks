@@ -6,6 +6,7 @@ import ao.com.angolartech.enums.Prioridade;
 import ao.com.angolartech.enums.Status;
 import ao.com.angolartech.exception.DataInvalidaException;
 import ao.com.angolartech.exception.ResourceNotFoundException;
+import ao.com.angolartech.exception.ResourceWithTitleExists;
 import ao.com.angolartech.mapper.TaskMapper;
 import ao.com.angolartech.model.Task;
 import ao.com.angolartech.repository.TaskRepo;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +33,10 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse create(TaskRequest request) {
 
         // Aqui vai está a lógica de buscar usuário.
+
+        if ( taskRepo.existsByTitulo(request.getTitulo()) ) {
+            throw new ResourceWithTitleExists("Já existe uma tarefa com este título.");
+        }
 
         Task task = taskMapper.requestToEntity(request);
 
@@ -85,4 +91,5 @@ public class TaskServiceImpl implements TaskService {
         }
 
     }
+
 }
