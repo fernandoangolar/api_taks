@@ -13,6 +13,7 @@ public class TaskRequest {
     @Size(min = 3, max = 100, message = "O título deve ter entre 3 a 100 caracteres.")
     private String titulo;
 
+    @NotNull(message = "A descrição é obrigatório")
     @Size(max = 500, message = "A descrição deve ter no máximo 500 caracteres")
     private String descricao;
 
