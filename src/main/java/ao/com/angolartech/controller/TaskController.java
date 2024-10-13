@@ -46,7 +46,7 @@ public class TaskController {
                 .body(response);
     }
 
-    @PutMapping("/{task_Id}")
+    @PutMapping("/{task_id}")
     public ResponseEntity<TaskResponse> update(@RequestBody @Valid TaskRequest request, @PathVariable Long task_id) {
 
         TaskResponse response = taskService.update(request, task_id);
