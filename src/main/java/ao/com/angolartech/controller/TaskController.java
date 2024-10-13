@@ -45,4 +45,13 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }
+
+    @PutMapping("/{task_Id}")
+    public ResponseEntity<TaskResponse> update(@RequestBody @Valid TaskRequest request, @PathVariable Long task_id) {
+
+        TaskResponse response = taskService.update(request, task_id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(response);
+    }
 }
